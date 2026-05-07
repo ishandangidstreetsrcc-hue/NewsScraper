@@ -1,14 +1,16 @@
 import os
-import google.generativeai as genai
+from google import genai
 
-# This gets your secret key from the GitHub 'safe'
+# This fetches your secret key from the GitHub 'safe'
 api_key = os.getenv("GEMINI_API_KEY")
 
-# Set up the AI
-genai.configure(api_key=api_key)
-model = genai.GenerativeModel('gemini-1.5-flash')
+# Initialize the new 2026 Client
+client = genai.Client(api_key=api_key)
 
-# Ask it a question
-response = model.generate_content("I am building a news scraper. Say 'The Brain is Online!' if you can hear me.")
+# We are using Gemini 3 Flash, the current balanced model for 2026
+response = client.models.generate_content(
+    model="gemini-3-flash", 
+    contents="I am building a news scraper. Say 'The Brain is Online!' if you can hear me."
+)
 
 print(response.text)
